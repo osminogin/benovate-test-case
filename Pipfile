@@ -1,0 +1,18 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+flake8 = "*"
+
+[packages]
+django = ">=2.2,<2.3"
+django-environ = "*"
+psycopg2-binary = "*"
+gunicorn = "*"
+pytest = "*"
+pytest-django = "*"
+
+[requires]
+python_version = "3.6"

@@ -1,0 +1,19 @@
+version: '3.7'
+
+services:
+
+  postgres:
+    image: postgres:11-alpine
+    restart: always
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    deploy:
+      restart_policy:
+        delay: 30s
+        max_attempts: 10
+        window: 60s
+
+volumes:
+  postgres-data:
