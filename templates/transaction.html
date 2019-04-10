@@ -15,4 +15,16 @@
     <input type="submit" value="Send money">
   </form>
 
+  <script>
+  $('form').first().submit(function(e){
+    e.preventDefault();
+    url = $(this).attr('action');
+    data = $(this).serialize();
+    $.post(url, data, function(response){
+      window.alert('Transaction was successful');
+      $('form').first().trigger('reset');
+    })
+  })
+  </script>
+
 {% endblock %}
