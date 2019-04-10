@@ -18,4 +18,4 @@ class User(AbstractUser):
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('username', 'balance',)
