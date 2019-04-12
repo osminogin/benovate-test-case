@@ -51,5 +51,6 @@ class TransactionForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # XXX: Можно еще попробовать добавить баланс каждого пользователя
         self.fields['sender'].choices = \
             User.objects.all().values_list('id', 'username')
