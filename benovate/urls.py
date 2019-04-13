@@ -16,9 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from txs.views import TransactionView
+from txs.views import TransactionView, HistoryView
 
 urlpatterns = [
     path('', TransactionView.as_view(), name='transaction'),
+    path('history/', HistoryView.as_view(), name='history'),
     path('admin/', admin.site.urls),
 ]
