@@ -6,7 +6,7 @@ from django.shortcuts import reverse
 
 @pytest.fixture(scope='function')
 def admin_user(django_user_model):
-    """ Неадминский юзер. """
+    """ Админский юзер. """
     return django_user_model.objects.get(pk=1)
 
 

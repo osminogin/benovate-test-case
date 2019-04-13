@@ -1,30 +1,44 @@
 {% extends "base.html" %}
 
+{% block title %}{% trans "Test task for Benovate" %}{% endblock %}
+
 {% block content %}
 
-  {% for message in messages %}
-    <div class="alert-dismissable">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&#215;</button>
-      {{ message }}
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">{% trans "Make transaction" %}</h5>
+      <p class="card-text">
+        <form action="." method="post">
+          {% csrf_token %}
+          {% bootstrap_form form %}
+          {% buttons %}
+            <button type="submit" class="btn btn-success btn-block btn-lg">{% trans "Send money" %}</button>
+          {% endbuttons %}
+        </form>
+      </p>
     </div>
-  {% endfor %}
+  </div>
 
-  <form action="." method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Send money">
-  </form>
+{% endblock %}
 
+{% block header %}
+  <style>
+    .btn-success {
+      margin-top: 2rem;
+    }
+  </style>
+{% endblock %}
+
+{% block extra %}
   <script>
-  $('form').first().submit(function(e){
-    e.preventDefault();
-    url = $(this).attr('action');
-    data = $(this).serialize();
-    $.post(url, data, function(response){
-      window.alert('Transaction was successful');
-      $('form').first().trigger('reset');
+    $('form').first().submit(function(e){
+      e.preventDefault();
+      url = $(this).attr('action');
+      data = $(this).serialize();
+      $.post(url, data, function(response){
+        window.alert('Transaction was successful');
+        $('form').first().trigger('reset');
+      })
     })
-  })
   </script>
-
 {% endblock %}
