@@ -4,6 +4,8 @@ from django import forms
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.contrib.postgres.forms import SimpleArrayField
 from django.utils.translation import ugettext_lazy as _
+from django.db.models import Value, CharField
+from django.db.models.functions import Concat
 
 from users.models import User
 from users.validators import INNValidator
@@ -51,6 +53,12 @@ class TransactionForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        # XXX: Можно еще попробовать добавить баланс каждого пользователя
-        self.fields['sender'].choices = \
-            User.objects.all().values_list('id', 'username')
+        user_balance_concat = Concat(
+            'username', Value(' - '), 'balance', output_field=CharField()
+        )
+        # Выборка активных пользователей для выпадающего списка
+        self.fields['sender'].choices = (
+            User.objects.filter(is_active=True)
+                .annotate(user_balance=user_balance_concat)
+                .values_list('id', 'user_balance')
+        )
