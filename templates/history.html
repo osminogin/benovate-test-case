@@ -13,24 +13,28 @@
         <th scope="col">{% trans "Processed" %}</th>
         <th scope="col">{% trans "Sender" %}</th>
         <th scope="col">{% trans "Recipients" %}</th>
-        <th scope="col">{% trans "Amount" %}</th>
+        <th scope="col" class="text-sm-right">{% trans "Amount" %}</th>
       </tr>
     </thead>
     <tbody>
       {% for tx in transactions %}
-        <tr>
-          <th scope="row">{{ tx.id }}</th>
-          <td>{{ tx.processed_time|date }}</td>
-          <td>{{ tx.sender.inn_number }}</td>
-          <td>{% for recipient in tx.recipients.all %}{{ recipient.inn_number }}<br>{% endfor %}</td>
-          <td>{{ tx.amount }}{% trans " rub." %}</td>
-        </tr>
+      <tr>
+        <th scope="row">{{ tx.id }}</th>
+        <td class="text-muted">{{ tx.processed_time|date }}</td>
+        <td><strong>{{ tx.sender.inn_number }}</strong></td>
+        <td>
+          {% for recipient in tx.recipients.all %}
+          <strong>{{ recipient.inn_number }}</strong><br>
+          {% endfor %}
+        </td>
+        <td class="text-sm-right">{{ tx.amount }}{% trans " rub." %}</td>
+      </tr>
       {% empty %}
-        <tr>
-          <td colspan="4">
-            {% trans "No transactions yet." %}
-          </td>
-        </tr>
+      <tr>
+        <td colspan="4">
+          {% trans "No transactions yet." %}
+        </td>
+      </tr>
       {% endfor %}
     </tbody>
   </table>

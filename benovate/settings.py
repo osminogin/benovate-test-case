@@ -140,6 +140,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+STATICFILES_DIRS = (root('static'),)
 
 # Fixtures
 # https://docs.djangoproject.com/en/2.2/howto/initial-data/

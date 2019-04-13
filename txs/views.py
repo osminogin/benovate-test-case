@@ -1,4 +1,5 @@
 from django.db import transaction
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import FormView
 from django.views.generic.list import ListView
 from django.utils.translation import ugettext_lazy as _
@@ -8,7 +9,7 @@ from .forms import TransactionForm
 from .models import Transaction
 
 
-class TransactionView(FormView):
+class TransactionView(SuccessMessageMixin, FormView):
     """
     Make transaction view.
     """
