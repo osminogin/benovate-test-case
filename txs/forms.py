@@ -19,7 +19,7 @@ class TransactionForm(forms.Form):
     recipients = SimpleArrayField(
         forms.CharField(validators=[INNValidator])
     )
-    sum = forms.DecimalField(decimal_places=2, max_digits=12)
+    amount = forms.DecimalField(decimal_places=2, max_digits=12)
 
     def clean_sender(self):
         """ Sender existence check. """
@@ -41,8 +41,8 @@ class TransactionForm(forms.Form):
     def clean(self):
         super().clean()
         # Проверка баланса отправителя
-        transaction_sum = Decimal(self.cleaned_data['sum'])
-        if self.cleaned_data['sender'].balance < transaction_sum:
+        total_amount = Decimal(self.cleaned_data['amount'])
+        if self.cleaned_data['sender'].balance < total_amount:
             raise ValidationError(
                 _('Insufficient funds in the sender\'s account')
             )
@@ -54,7 +54,8 @@ class TransactionForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         user_balance_concat = Concat(
-            'username', Value(' - '), 'balance', output_field=CharField()
+            'username', Value(' - '), 'balance', Value(str(_(' rub.'))),
+            output_field=CharField()
         )
         # Выборка активных пользователей для выпадающего списка
         self.fields['sender'].choices = (

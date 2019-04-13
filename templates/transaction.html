@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block title %}{% trans "Test task for Benovate" %}{% endblock %}
+{% block title %}{% trans "Make transaction" %}{% endblock %}
 
 {% block content %}
 
@@ -21,16 +21,22 @@
 
 {% endblock %}
 
-{% block header %}
-  <style>
-    .btn-success {
-      margin-top: 2rem;
-    }
-  </style>
-{% endblock %}
-
 {% block extra %}
   <script>
+  /***
+    XXX:
+
+    Оно работает, но я выключил, т.к. что бы оно работало хорошо - нужно сделать
+    много движений: валидация полей на клиенте (вывод ошибок), сообщение о результате
+    обработки формы (сейчас это просто window.alert) и т.п. А так это все и сразу
+    получаем стандратными сердствами Django.
+
+    Django и AJAX-штуки не очень хорошо совмещаются (на больших проектах точно).
+    Если все делать по нормальноному, то в итоге, я думаю, все сведется к SPA + API.
+
+  ***/
+
+  /***
     $('form').first().submit(function(e){
       e.preventDefault();
       url = $(this).attr('action');
@@ -40,5 +46,6 @@
         $('form').first().trigger('reset');
       })
     })
+  ***/
   </script>
 {% endblock %}
