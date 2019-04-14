@@ -1,0 +1,25 @@
+language: python
+
+services: postgresql
+
+python:
+  - '3.6'
+
+matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
+
+env:
+  - DEBUG=False DATABASE_URL=postgres://postgres@localhost/postgres
+
+install:
+  - 'pip install --upgrade pipenv'
+  - 'pipenv sync'
+
+before_script:
+  - 'pipenv run ./manage.py migrate --no-input'
+
+script:
+  - 'pipenv run pytest'

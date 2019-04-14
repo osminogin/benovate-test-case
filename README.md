@@ -1,10 +1,6 @@
 # Test task for Benovate
 
-## Screenshots
-
-![Screenshot 1](https://github.com/osminogin/benovate-test-case/raw/master/static/Screenshot_1.png)
-
-![Screenshot 2](https://github.com/osminogin/benovate-test-case/raw/master/static/Screenshot_2.png)
+[![](https://travis-ci.org/osminogin/benovate-test-case.svg?branch=master)](https://travis-ci.org/osminogin/benovate-test-case)
 
 ## How to start
 
