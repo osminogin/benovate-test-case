@@ -40,6 +40,8 @@ class TransactionForm(forms.Form):
 
     def clean(self):
         super().clean()
+        if not self.cleaned_data.get('amount'):
+            raise ValidationError(_('Amount is required'))
         # Проверка баланса отправителя
         total_amount = Decimal(self.cleaned_data['amount'])
         if self.cleaned_data['sender'].balance < total_amount:
